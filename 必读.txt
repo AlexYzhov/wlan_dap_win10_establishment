@@ -1,0 +1,21 @@
+开始使用前，首先请安装Arduino IDE和ESP8266支持包（具体百度）。
+并在esp8266-wifi-cmsis-dap.ino文件中，修改好8266所使用WLAN的SSID和密码。
+编译后将固件下载至8266。
+
+之后，请进入wlan_dap\usbip_bsod_fixed_certificated\drivers\，参考文件夹下的安装说明，
+完成Windows端驱动的安装。
+
+完成以上两步后，双击run.bat即可进入OpenOCD进行调试。
+
+但在之前，务必编辑好run.bat内的如下变量：
+1. ip_cmsis_dap ESP8266的局域网IP地址，比如192.168.0.110
+2. name_device  等待调试的单片机配置文件名，比如stm32f0，K60等
+
+run.bat只作功能演示用，不建议用来实际调试。
+若想链接IAR、Keil或者Eclipse使用GDB进行调试，需要更多部署。
+更多内容请自行查阅相关文档。
+
+注：测试时使用的NodeMCU（安信可ESP-12E/F模块）。
+若使用其他模块，需要注意Arduino环境配置。
+目标板使用的是Jlink OB072。Jlink固件放置在和OpenOCD.exe同一个目录下。
+可以在telnet控制台中，使用OpenOCD命令，命令8266向stm32f072下载Jlink固件，验证功能是否正常。

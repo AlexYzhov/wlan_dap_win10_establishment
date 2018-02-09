@@ -1,0 +1,67 @@
+证书管理器工具管理证书、证书信任列表 (CTL) 和证书吊销列表 (CRL)。 
+
+certmgr [/add | /del | /put] [options]
+[/s[/r registryLocation]] [sourceStorename]
+[/s[/r registryLocation]] [destinationStorename]
+
+参数
+--------------------------------------------------------------------------------
+参数                 说明  
+sourceStorename      StoreFile 类型或系统存储区类型的输入证书存储区。
+destinationStorename 输出证书存储区或文件。
+
+选项                 说明 
+/add                 将证书、CTL 和 CRL 添加到证书存储区中。
+/all                 当与 /add 一起使用时添加所有项。当与 /del 一起使用时删除所有项。不带 /add 或 /delete 选项使用时显示所有项。/all 选项不能与 /put 一起使用。
+/c                   当与 /add 一起使用时添加证书。当与 /del 一起使用时删除证书。当与 /put 一起使用时保存证书。不带 /add、/delete 或 /put 选项使用时显示证书。 
+/CRL                 添加或删除 CRL。不带 /add、/delete 或 /put 选项使用时显示 CRL。 
+/CTL                 添加或删除 CTL。不带 /add、/delete 或 /put 选项使用时显示 CTL。
+/delete              从指定的证书存储区中删除证书、CTL 和 CRL。
+/e encodingType      指定证书编码类型。
+/f dwFlags           指定存储区打开标志。这是传递到 CertOpenStore 的 dwFlags 参数。默认值为 CERT_SYSTEM_STORE_CURRENT_USER。仅当使用 /y 选项时才考虑此选项。
+/h[elp]              显示该工具的命令语法和选项。
+/n commonName String 指定要添加、删除或保存的证书的公共名。此选项只能用于证书，不能用于 CTL 或 CRL。
+/put                 将证书存储区中的 X.509 证书、CTL 或 CRL 保存到文件。该文件将以 X.509 格式保存。/7 选项可与 /put 选项一起使用以 PKCS #7 格式保存文件。/put 选项后面必须有 /c、/CTL 或 /CRL。/all 选项不能与 /put 一起使用。 
+/r registry location 标识系统存储区的注册表位置。仅当指定 /s 选项时才考虑此选项。Registry location 必须是下列值之一：
+                     currentUser 指示证书存储区在 HKEY_CURRENT_USER 键下。此为默认值。
+                     localMachine 指示证书存储区在 HKEY_LOCAL_MACHINE 键下。
+/s                   指示证书存储区是系统存储区。如果不指定此选项，则该存储区为 StoreFile。
+/sha1 sha1Hash       指定要添加、删除或保存的证书、CTL 或 CRL 的 SHA1 哈希。
+/v                   指定详细模式；显示有关证书、CTL 和 CRL 的详细信息。此选项不能与 /add、/delete 或 /put 选项一起使用。
+/y storeProviderType 指定存储区提供程序类型。
+/7                   将目标存储区保存为 PKCS#7 对象。 
+/?                   显示该工具的命令语法和选项。
+ 
+ 
+备注
+--------------------------------------------------------------------------------
+Certmgr.exe 执行下列基本功能： 
+将证书、CTL 和 CRL 显示到控制台。 
+将证书、CTL 和 CRL 添加到证书存储区中。 
+从证书存储区中删除证书、CTL 和 CRL。 
+将证书存储区中的 X.509 证书、CTL 或 CRL 保存到文件。 
+Certmgr.exe 使用两类证书存储区：StoreFile 和系统存储区。 不必指定证书存储区的类型；Certmgr.exe 能够识别存储区类型并执行适当的操作。 
+未指定任何选项运行 Certmgr.exe 启动 certmgr.msc 的管理单元，其中有一个 GUI，使用证书管理任务，也可从命令行的帮助。 该 GUI 提供一个导入向导，此向导将证书、CTL 和 CRL 从磁盘复制到证书存储区中。 
+有关证书的更多信息，请参见 Microsoft Platform SDK 文档中的“About CryptoAPI”部分。 
+示例
+--------------------------------------------------------------------------------
+下列命令显示一个名为 my 且包含详细输出的默认系统存储区。 
+certmgr /v /s my
+
+下面的命令将名为 myFile.ext 的文件中的所有证书添加到一个名为 newFile.ext 的新文件中。 
+certmgr /add /all /c myFile.ext newFile.ext
+
+下面的命令将一个名为 文件中添加证书 testcert.cer以将 my系统存储区。 
+certmgr /add /c testcert.cer /s my
+
+下面的命令将证书添加在一个文件中名为 TrustedCert.cer到 根证书存储区。 
+certmgr /c /add TrustedCert.cer /s root
+
+下面的命令将证书保存使用通用名称 myCert中将 my系统存储到文件中名为 newCert.cer 
+certmgr /add /c /n myCert /s my newCert.cer
+
+下面的命令删除 my 系统存储区中的所有 CTL，并将结果存储区保存到一个名为 newStore.str 的文件中。 
+certmgr /del /all /ctl /s my newStore.str
+
+下面的命令将证书保存在 my文件中存储系统 newFile 系统将提示您输入证书编号从 my放 newFile 
+certmgr /put /c /s my newFile

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ArrayOfKernelModeDevice xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<KernelModeDevice>
+		<ID>raspberrypi</ID>
+		<Name>Raspberry Pi</Name>
+		<ScriptFile>target/raspberry.cfg</ScriptFile>
+	</KernelModeDevice>
+	<KernelModeDevice>
+		<ID>imx6_single</ID>
+		<Name>i.MX6 (single core)</Name>
+		<ScriptFile>target/imx6.cfg</ScriptFile>
+	</KernelModeDevice>
+	<KernelModeDevice>
+		<ID>imx6_dual</ID>
+		<Name>i.MX6 (dual-core)</Name>
+		<ScriptFile>target/imx6_dual.cfg</ScriptFile>
+	</KernelModeDevice>
+	<KernelModeDevice>
+		<ID>imx6_quad</ID>
+		<Name>i.MX6 (quad-core)</Name>
+		<ScriptFile>target/imx6_quad.cfg</ScriptFile>
+	</KernelModeDevice>
+</ArrayOfKernelModeDevice>
